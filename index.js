@@ -1,16 +1,41 @@
-const express = require('express')
-const app = express()
+const express = require("express");
+const app = express();
 
-app.get('/',(req,res)=>{
-    console.log("Get request is running")
-    res.send("Welcome to our home page")
+app.get("/users", (req, res) => {
+  res.json({
+    status: true,
+    data: [{ name: "Abu Huraira" }, { name: "Abdul Muqeet" }],
+  });
+});
+
+app.post("/users", (req, res) => {
+  res.json({
+    status: true,
+    message: "Users added successfully",
+  });
+});
+
+app.put('/users',(req,res)=>{
+    res.json({
+        status:true,
+        message:"User updated successfully"
+    })
 })
 
-app.get('/about',(req,res)=>{
-    console.log("about page is running")
-    res.send("Welcome to our about page")
+app.patch('/users',(req,res)=>{
+    res.json({
+        status:true,
+        message:"User field updated successfully"
+    })
 })
 
-app.listen(5000,()=>{
-    console.log("server is running")
+app.delete('/users',(req,res)=>{
+    res.json({
+        status:true,
+        message:"User deleted successfully"
+    })
 })
+
+app.listen(5000, () => {
+  console.log("server is running");
+});
