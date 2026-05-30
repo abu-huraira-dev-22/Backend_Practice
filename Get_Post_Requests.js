@@ -1,6 +1,12 @@
 const express = require("express");
+const morgan = require("morgan");
+const dotenv = require("dotenv").config;
+dotenv()
 const app = express();
+
 app.use(express.json());
+
+app.use(morgan("tiny"));
 
 let users = [];
 
@@ -36,16 +42,16 @@ app.put("/users/:userName", (req, res) => {
   });
 });
 
-app.delete('/users/:username',(req,res)=>{
-    const {userName} = req.body
-    users = users.filter((user)=>{
-        return user.userName !== userName
-    })
-    res.json({
-        status:true,
-        message:"User data deleted successfully"
-    })
-})
+app.delete("/users/:username", (req, res) => {
+  const { userName } = req.body;
+  users = users.filter((user) => {
+    return user.userName !== userName;
+  });
+  res.json({
+    status: true,
+    message: "User data deleted successfully",
+  });
+});
 
 app.post("/users", (req, res) => {
   const data = req.body;
@@ -56,6 +62,6 @@ app.post("/users", (req, res) => {
   });
 });
 
-app.listen(5000, () => {
-  console.log("server is running");
+app.listen(process.env.PORT, () => {
+  console.log("server is running on the port of " + process.env.PORT);
 });
